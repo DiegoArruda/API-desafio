@@ -1,0 +1,264 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "API alunos",
+		"version": "1.0.0",
+		"description": "API para desafio de Desenvolvedor Web/Cloud AWS Practitioner - Potência Tech - São Paulo",
+		"contact": {}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/",
+			"description": "API de teste"
+		}
+	],
+	"paths": {
+		"/alunos": {
+			"post": {
+				"summary": "Cadastro de alunos",
+				"description": "Rota responsável por cadastrar alunos",
+				"tags": ["Alunos"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"$ref": "#/components/schemas/Aluno"
+							},
+							"example": {
+								"aluno": {
+									"value": {
+										"nome": "Antonio",
+										"idade": 15,
+										"notaPrimeiroSemestre": 5,
+										"notaSegundoSemestre": 9,
+										"nomeProfessor": "Audacio",
+										"numeroSala": 3
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"500": {
+						"description": "Dados Inválidos."
+					},
+					"201": {
+						"description": "Aluno Cadastrado com sucesso.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Aluno"
+								},
+								"example": {
+									"aluno": {
+										"value": {
+											"nome": "Antonio",
+											"idade": 15,
+											"notaPrimeiroSemestre": 5,
+											"notaSegundoSemestre": 9,
+											"nomeProfessor": "Audacio",
+											"numeroSala": 3
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"summary": "Lista de todos os alunos",
+				"description": "Rota responsável por listar todos os alunos",
+				"tags": ["Alunos"],
+				"responses": {
+					"200": {
+						"description": "Lista dos alunos",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"$ref": "#/components/schemas/Aluno"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/alunos/{id}": {
+			"get": {
+				"description": "Busca um aluno pelo ID",
+				"summary": "Filtragem de alunos por ID",
+				"tags": ["Alunos"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID do Aluno",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Aluno"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Aluno encontrado",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Aluno"
+								},
+								"example": {
+									"id": 1,
+									"nome": "Anderson",
+									"idade": 20,
+									"notaPrimeiroSemestre": 5,
+									"notaSegundoSemestre": 9,
+									"nomeProfessor": "Paulo",
+									"numeroSala": 3,
+									"createdAt": "2023-10-29T15:09:35.000Z",
+									"updatedAt": "2023-10-29T15:12:24.000Z"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Aluno não encontrado"
+					},
+					"500": {
+						"description": "err.message"
+					}
+				}
+			},
+			"put": {
+				"description": "Atualização de Aluno pelo ID",
+				"summary": "Atualiza os dados do aluno usando o ID",
+				"tags": ["Alunos"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID do aluno",
+						"schema": {
+							"$ref": "#/components/schemas/Aluno"
+						},
+						"required": true
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Aluno"
+							},
+							"example": {
+								"nome": "Anderson",
+								"idade": 20,
+								"notaPrimeiroSemestre": 5,
+								"notaSegundoSemestre": 9,
+								"nomeProfessor": "Paulo",
+								"numeroSala": 3
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Aluno atualizado.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Aluno"
+								},
+								"example": {
+									"id": 1,
+									"nome": "Anderson",
+									"idade": 20,
+									"notaPrimeiroSemestre": 5,
+									"notaSegundoSemestre": 9,
+									"nomeProfessor": "Paulo",
+									"numeroSala": 3,
+									"createdAt": "2023-10-29T15:09:35.000Z",
+									"updatedAt": "2023-10-29T15:12:24.000Z"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Aluno não encontrado"
+					},
+					"500": {
+						"description": "Erro interno do servidor"
+					}
+				}
+			},
+			"delete": {
+				"summary": "Exclui um Aluno pelo ID",
+				"tags": ["Alunos"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID do Aluno",
+						"schema": {
+							"$ref": "#/components/schemas/Aluno"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Aluno excluido.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Aluno"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Aluno não encontrado"
+					},
+					"500": {
+						"description": "Erro interno do servidor"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Aluno": {
+				"type": "object",
+				"properties": {
+					"nome": {
+						"type": "string"
+					},
+					"idade": {
+						"type": "integer"
+					},
+					"notaPrimeiroSemestre": {
+						"type": "number"
+					},
+					"notaSegundoSemestre": {
+						"type": "number"
+					},
+					"nomeProfessor": {
+						"type": "string"
+					},
+					"numeroSala": {
+						"type": "integer"
+					}
+				}
+			}
+		}
+	}
+}
