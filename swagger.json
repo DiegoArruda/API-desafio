@@ -6,6 +6,7 @@
 		"description": "API para desafio de Desenvolvedor Web/Cloud AWS Practitioner - Potência Tech - São Paulo",
 		"contact": {}
 	},
+
 	"servers": [
 		{
 			"url": "https://api-desafio.vercel.app/",
